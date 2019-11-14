@@ -1,17 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8" />
-    <title th:text="${title}">**My Favorite Cheeses**</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<!-- The container allows styples to be applied to the body of the web pages-->
+<body class="container">
+
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="POST">
-    <input type="text" name="cheeseName" />
-    <input type="submit" value="Add Cheese" />
+<nav th:replace="fragments :: navigation"></nav>
+
+<!--This form will allow for submission of the description-->
+<!--Form Styling by Bootstrap to the form-group wrapper divs creates nice and wide
+text inputs on the 'add' function-->
+<form method="POST" style="max-width:600px;" th:object="${cheese}">
+    <div class="form-group">
+        <label th:for="name">Cheese Name</label>
+        <input class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="description">Cheese Description</label>
+        <input class="form-control" th:field="*{description}" />
+        <span th:errors="*{description}" class="errors"></span>
+    </div>
+
+    <!-- Input enum type in cheeseType to select from drop-down-->
+    <div class="form-group">
+        <label th:for="type">Type of Cheese</label>
+        <select th:field="*{type}">
+            <option th:each="cheeseType : ${cheeseTypes}"
+                    th:text="${cheeseType.name}"
+                    th:value="${cheeseType}">
+            </option>
+        </select>
+    </div>
+
+    <input type="submit" value="Add Favorite Cheese" />
 </form>
 
 </body>
 </html>
-

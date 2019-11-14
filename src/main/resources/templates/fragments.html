@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title th:text="${title}">My Cheeses</title>
+
+<!-- CSS and JS is located in the resources/static file-->
+<!-- Make changes to CSS and JS in the styles file-->
+<!--    <link rel="stylesheet" th:href="@{/css/styles.css}" />-->
+<!--    <script type="text/javascript" th:src="@{/js/script.js}"></script>-->
+
+<!-- Add bootstrap (CSS and JS) to cleanup the app here-->
+<!-- The Bootstrap classes were added to improve the look and feel of the following application(s) are:
+container, form-group, and form-control.-->
+    <link rel = "stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<!--Creates button to add favorite cheese to list-->
+<nav th:fragment="navigation">
+    <a href="/cheese">List of Favorite Cheeses</a>
+    <br />
+    <a href="/cheese/add">Add Cheese</a>
+    <br />
+    <!--Note: Add a link to the Remove Cheese path in the navigation in the fragments.html file-->
+    <a href="/cheese/remove">Remove Cheese</a>
+</nav>
+
+</body>
+</html>
