@@ -4,6 +4,8 @@ import org.launchcode.cheesemvc.models.Cheese;
 import org.launchcode.cheesemvc.models.CheeseData;
 import org.launchcode.cheesemvc.models.CheeseType;
 
+import org.launchcode.cheesemvc.models.Data.CheeseDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,10 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-// working on code
+// working on code to push
 @Controller
 @RequestMapping("cheese")
 public class CheeseController {
+
+    // Create a private cheeseDao to replace the cheeseData file
+    // This the alleged "Spring Magic" - Advanced annotation that will implement the interface
+    @Autowired
+    private CheeseDao cheeseDao;
+
 
     /* static - will make the list of cheeses accessible to our methods
     This is known as a static member - it exists while Spring is running
@@ -33,7 +41,7 @@ public class CheeseController {
 //        cheeses.add("Parmesan");
 
         // the model passes data into the view
-        model.addAttribute("cheeses", CheeseData.getAll());
+        model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("title", "Ladhi Thai's Favorite Cheeses");
         // model.addAttribute("title1","A List of My Favorite Cheeses" );
 
@@ -60,7 +68,8 @@ public class CheeseController {
             return "cheese/add";
         }
 
-        CheeseData.add(newCheese);
+        //CheeseData.add(newCheese);
+        cheeseDao.save(newCheese);
         // Redirect to path: /cheese
         return "redirect:";
     }
@@ -70,15 +79,17 @@ public class CheeseController {
     form, and should redirect to the Index view associated with the Cheese controller.*/
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
-        model.addAttribute("cheeses", CheeseData.getAll());
+        model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("title", "Remove Old Cheese Here:");
         return "cheese/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveCheeseForm(@RequestParam int [] cheeseIds) {
+
         for (int cheeseId : cheeseIds) {
-            CheeseData.remove(cheeseId);
+            //CheeseData.remove(cheeseId);
+            cheeseDao.delete(cheeseId);
         }
         // Redirect to path: /cheese
         return "redirect:/cheese";

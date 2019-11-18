@@ -1,11 +1,21 @@
 package org.launchcode.cheesemvc.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Cheese {
     // variables/attributes/fields
     // Set Java Validation for name and description fields
+    // @Id and @ GeneratedValue declares the primary key column
+    // as unique and the values will be generated
+    @Id
+    @GeneratedValue
+    private int id;
+
     @NotNull
     @Size(min = 3, max = 15)
     private String name;
@@ -17,12 +27,12 @@ public class Cheese {
     // Allows user to select type of cheese from drop-down
     private CheeseType type;
 
-    private int cheeseId;
-    private static int nextId = 1;
+    // private int cheeseId;
+    // private static int nextId = 1;
 
     //Constructor method signatures
     public Cheese(String name, String description) {
-        this();
+    //  this();
         this.name = name;
         this.description = description;
     }
@@ -33,13 +43,18 @@ public class Cheese {
     }
 
     // Getters and Setters
-    public int getCheeseId() {
-        return cheeseId;
+
+    public int getId() {
+        return id;
     }
 
-    public void setCheeseId(int cheeseId) {
-        this.cheeseId = cheeseId;
-    }
+//    public int getCheeseId() {
+//        return cheeseId;
+//    }
+//
+//    public void setCheeseId(int cheeseId) {
+//        this.cheeseId = cheeseId;
+//    }
 
     public String getName() {
         return name;
