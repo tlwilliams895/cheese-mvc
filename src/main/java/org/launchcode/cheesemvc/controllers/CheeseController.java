@@ -17,6 +17,7 @@ import javax.validation.Valid;
 /**
  * Created by Tyisha Williams
  */
+
 @Controller
 @RequestMapping("cheese")
 public class CheeseController {
@@ -26,14 +27,14 @@ public class CheeseController {
     public String index(Model model) {
 
         model.addAttribute("cheeses", CheeseData.getAll());
-        model.addAttribute("title", "My Cheeses");
+        model.addAttribute("title", "Thai's Favorite Cheeses");
 
         return "cheese/index";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddCheeseForm(Model model) {
-        model.addAttribute("title", "Add Cheese");
+        model.addAttribute("title", "Add New Cheese - Yayy!");
         model.addAttribute(new Cheese());
         model.addAttribute("cheeseTypes", CheeseType.values());
         return "cheese/add";
@@ -44,7 +45,7 @@ public class CheeseController {
                                        Errors errors, Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Cheese");
+            model.addAttribute("title", "Add New Cheese - Yayy!");
             return "cheese/add";
         }
 
@@ -55,7 +56,7 @@ public class CheeseController {
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
         model.addAttribute("cheeses", CheeseData.getAll());
-        model.addAttribute("title", "Remove Cheese");
+        model.addAttribute("title", "Remove Old Cheese - Whoa!");
         return "cheese/remove";
     }
 
